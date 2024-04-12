@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 router.get('/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
-        const usuario = await Usuario.findOne({ IdUsuario: userId });
+        const usuario = await Usuario.findById(userId);
 
         if (!usuario) {
             return res.status(404).json({ error: 'Usuario no encontrado' });
@@ -33,8 +33,8 @@ router.get('/:userId', async (req, res) => {
 // Crear un nuevo usuario
 router.post('/', async (req, res) => {
     try {
-        const { IdUsuario, Nombre, Apellidos, Direccion, Correo, Tipo } = req.body;
-        const newUser = new Usuario({ IdUsuario, Nombre, Apellidos, Direccion, Correo, Tipo });
+        const { Nombre, Apellidos, Direccion, Correo, Tipo } = req.body;
+        const newUser = new Usuario({ Nombre, Apellidos, Direccion, Correo, Tipo });
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
     } catch (error) {
@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
 router.put('/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
-        const updatedUser = await Usuario.findOneAndUpdate({ IdUsuario: userId }, req.body, { new: true });
+        const updatedUser = await Usuario.findByIdAndUpdate(userId, req.body, { new: true });
 
         if (!updatedUser) {
             return res.status(404).json({ error: 'Usuario no encontrado' });
@@ -64,7 +64,7 @@ router.put('/:userId', async (req, res) => {
 router.delete('/:userId', async (req, res) => {
     try {
         const userId = req.params.userId;
-        const deletedUser = await Usuario.findOneAndDelete({ IdUsuario: userId });
+        const deletedUser = await Usuario.findByIdAndDelete(userId);
 
         if (!deletedUser) {
             return res.status(404).json({ error: 'Usuario no encontrado' });
