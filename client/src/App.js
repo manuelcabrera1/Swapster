@@ -1,34 +1,21 @@
-import React, { useState } from 'react';
-import './App.css';  // Importar el archivo de estilos CSS
+import './App.css'
+import CrearUsuario from './crearusuario'
+import MostrarUsuario from './mostrarusuarios'
 
-import MostrarUsuarios from './mostrarusuarios';
-import CrearUsuario from './crearusuario';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-const App = () => {
-    const [mostrarCrearUsuario, setMostrarCrearUsuario] = useState(false);
-    const [mostrarMostrarUsuarios, setMostrarMostrarUsuarios] = useState(false);
+function App(){
+    return(
+        <BrowserRouter>
+        <div>
 
-    const mostrarComponente = (componente) => {
-        if (componente === 'crear') {
-            setMostrarCrearUsuario(true);
-            setMostrarMostrarUsuarios(false);
-        } else if (componente === 'mostrar') {
-            setMostrarCrearUsuario(false);
-            setMostrarMostrarUsuarios(true);
-        }
-    };
-
-    return (
-        <div className="container">
-            <h1 className="header">Swapster</h1>
-            <div className="buttonContainer">
-                <button className="button" onClick={() => mostrarComponente('crear')}>Crear Usuario</button>
-                <button className="button" onClick={() => mostrarComponente('mostrar')}>Mostrar Usuarios</button>
-            </div>
-            {mostrarCrearUsuario && <CrearUsuario />}
-            {mostrarMostrarUsuarios && <MostrarUsuarios />}
+        <Switch>
+            <Route exact path='/' component={CrearUsuario }/>
+            <Route path='/mostrar' component={MostrarUsuario }/>
+        </Switch>
         </div>
-    );
-};
+        </BrowserRouter>
+    )
+}
 
 export default App;
