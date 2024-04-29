@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './App.css'; // Importar tu archivo CSS personalizado
+//import './App.css'; // Importar tu archivo CSS personalizado
+import '../src/Stylesheets/login.css';
 
 const App = () => {
   const [nombre, setNombre] = useState('');
@@ -31,12 +32,14 @@ const App = () => {
   };
 
   return (
-    <div className="crear-usuario-container">
-      <div className="header">
-        {/*<img src="/images/user.png" alt="User Image"/>*/}
-        <h1>Crear Cuenta</h1>
+    <body>
+      <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
       </div>
+
       <form onSubmit={handleSubmit}>
+        <h1>Crear Cuenta</h1>
         <input type="text" required placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
         <input type="text" required placeholder="Apellidos" value={apellidos} onChange={(e) => setApellidos(e.target.value)} />
         <input type="text" required placeholder="Dirección" value={direccion} onChange={(e) => setDireccion(e.target.value)} />
@@ -44,7 +47,7 @@ const App = () => {
         <button type="submit">Confirmar</button>
       </form>
       {mensaje && <p>{mensaje}</p>}
-    </div>
+    </body>
   );
 };
 

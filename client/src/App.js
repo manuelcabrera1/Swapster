@@ -1,6 +1,7 @@
 import './App.css'
 import CrearUsuario from './crearusuario'
 import MostrarUsuario from './mostrarusuarios'
+import LoginPage from './iniciarSesion'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -10,8 +11,9 @@ function App(){
         <div>
 
         <Switch>
-            <Route exact path='/' component={CrearUsuario }/>
+            <Route exact path='/registro' component={CrearUsuario }/>
             <Route path='/mostrar' component={MostrarUsuario }/>
+            <Route path='/login' component={LoginPage }/>
         </Switch>
         </div>
         </BrowserRouter>
