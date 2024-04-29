@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 //import './App.css'; 
 import './Stylesheets/login.css';
+import TopBar from './Componentes/topBar';
 
 const LoginPage = () => {
   const [correo, setCorreo] = useState('');
@@ -27,6 +28,7 @@ const LoginPage = () => {
 
   return (
     <body>
+      <TopBar/>
         <div class="background">
             <div class="shape"></div>
             <div class="shape"></div>
@@ -35,13 +37,8 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit}>
             <h1>Iniciar Sesión</h1>
             
-            <label for="correo">Correo</label>
-            <input id="correo" type="email" value={correo} placeholder="Correo" onChange={(e) => setCorreo(e.target.value)} required
-            />
-
-            <label for="contraseña">Contraseña</label>
-            <input id="contraseña" type={mostrarContraseña ? "text" : "password"} value={contraseña} placeholder="Contraseña" onChange={(e) => setContraseña(e.target.value)} required
-            />
+            <input id="correo" type="email" value={correo} placeholder="Correo" onChange={(e) => setCorreo(e.target.value)} required/>
+            <input id="contraseña" type={mostrarContraseña ? "text" : "password"} value={contraseña} placeholder="Contraseña" onChange={(e) => setContraseña(e.target.value)} required/>
 
             <label className="checkbox-container">
                 <input
@@ -63,6 +60,7 @@ const LoginPage = () => {
 
             <div className="links">
             <a href="/recordar-contraseña">¿Olvidaste tu contraseña?</a>
+            <br />
             <a href="/registro">Crear una cuenta</a>
             </div>
         </form>

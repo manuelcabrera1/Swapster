@@ -134,7 +134,7 @@ input[type="checkbox"] {
 
 .links{
     margin-top: 15px;
-    display: flex;
+    display: inline;
     align-items: center;
     justify-content: center;
     height: auto;

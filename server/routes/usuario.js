@@ -45,8 +45,9 @@ router.get('/:userId', async (req, res) => {
 // Crear un nuevo usuario
 router.post('/', async (req, res) => {
     try {
-        const { Nombre, Apellidos, Direccion, Correo, Tipo } = req.body;
-        const newUser = new Usuario({ Nombre, Apellidos, Direccion, Correo, Tipo });
+        const { Nombre, Apellidos, Direccion, Correo, Tipo, Productos} = req.body;
+        const array= []
+        const newUser = new Usuario({ Nombre, Apellidos, Direccion, Correo, Tipo , array});
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
     } catch (error) {
@@ -54,6 +55,8 @@ router.post('/', async (req, res) => {
         res.status(500).json({ error: 'Hubo un problema al crear el usuario' });
     }
 });
+
+
 
 // Actualizar un usuario por su ID
 router.put('/:userId', async (req, res) => {
