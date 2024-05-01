@@ -8,6 +8,7 @@ const App = () => {
   const [apellidos, setApellidos] = useState('');
   const [direccion, setDireccion] = useState('');
   const [correo, setCorreo] = useState('');
+  const [password, setPassword] = useState('');
   const [mensaje, setMensaje] = useState('');
 
   const handleSubmit = async (event) => {
@@ -18,6 +19,7 @@ const App = () => {
       Apellidos: apellidos,
       Direccion: direccion,
       Correo: correo,
+      Password: password,
       Tipo: 'user',
       Productos: []
     };
@@ -47,6 +49,7 @@ const App = () => {
         <input type="text" required placeholder="Apellidos" value={apellidos} onChange={(e) => setApellidos(e.target.value)} />
         <input type="text" required placeholder="Dirección" value={direccion} onChange={(e) => setDireccion(e.target.value)} />
         <input type="email" required placeholder="Correo" value={correo} onChange={(e) => setCorreo(e.target.value)} />
+        <input type="password" required placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} />
         <button type="submit">Confirmar</button>
       </form>
       {mensaje && <p>{mensaje}</p>}

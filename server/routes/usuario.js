@@ -45,9 +45,8 @@ router.get('/:userId', async (req, res) => {
 // Crear un nuevo usuario
 router.post('/', async (req, res) => {
     try {
-        const { Nombre, Apellidos, Direccion, Correo, Tipo, Productos} = req.body;
-        const array= []
-        const newUser = new Usuario({ Nombre, Apellidos, Direccion, Correo, Tipo , array});
+        const { Nombre, Apellidos, Direccion, Correo, Password, Tipo, Productos} = req.body;
+        const newUser = new Usuario({ Nombre, Apellidos, Direccion, Correo, Tipo , Password, Productos: Productos || []});
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
     } catch (error) {
