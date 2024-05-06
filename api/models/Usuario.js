@@ -18,6 +18,10 @@ const UsuarioSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    Password: {
+        type: String,
+        required: true,
+    },
     Tipo: {
         type: String,
         required: true,

@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 var mongoose = require("mongoose");
-const uri="mongodb+srv://admin:root1234@cluster-iw.miy9lgu.mongodb.net/"
+const uri="mongodb+srv://admin:root1234@cluster-iw.miy9lgu.mongodb.net/Swapster"
 
 mongoose.connect(uri)
 .then(()=>{
