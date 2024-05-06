@@ -34,8 +34,8 @@ router.get('/:productId', async (req, res) => {
 // Crear un nuevo producto
 router.post('/', async (req, res) => {
     try {
-        const {Nombre, Descripcion, Precio, Imagen } = req.body;
-        const newProducto = new Producto({Nombre, Descripcion, Precio, Imagen });
+        const {Nombre, Descripcion, Precio, Unidades, Usuario, Imagen } = req.body;
+        const newProducto = new Producto({Nombre, Descripcion, Precio, Unidades, Usuario, Imagen });
         const savedProducto = await newProducto.save();
         res.status(201).json(savedProducto);
     } catch (error) {

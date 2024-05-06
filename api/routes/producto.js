@@ -45,6 +45,7 @@ router.post('/', async (req, res) => {
 });
 
 
+
 // Actualizar un producto por su ID (_id)
 router.put('/:productId', async (req, res) => {
     try {

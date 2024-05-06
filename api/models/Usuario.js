@@ -26,7 +26,10 @@ const UsuarioSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    Productos:{
+    Productos_vendidos:{
+        type: Array
+    },
+    Productos_comprados:{
         type: Array
     }
 

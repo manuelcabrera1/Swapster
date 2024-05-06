@@ -21,7 +21,9 @@ const App = () => {
       Correo: correo,
       Password: password,
       Tipo: 'user',
-      Productos: []
+      Productos_vendidos: [],
+      Productos_comprados: []
+
     };
 
     try {
