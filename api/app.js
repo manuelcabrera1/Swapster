@@ -11,7 +11,6 @@ var mongooseRouter = require('./routes/mongoose');
 var loginRouter = require('./routes/login');
 var productoRouter = require('./routes/producto');
 var usuarioRouter = require('./routes/usuario')
-var imagesRouter = require('./../local')
 
 var app = express();
 
@@ -25,6 +24,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret:'secreto'}));
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -32,7 +33,6 @@ app.use('/mongoose', mongooseRouter);
 app.use('/api/auth/login', loginRouter);
 app.use('/api/producto', productoRouter);
 app.use('/api/usuario', usuarioRouter);
-app.use('/images', imagesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

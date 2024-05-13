@@ -10,11 +10,11 @@ const ProductoSchema = new mongoose.Schema({
         required: true
     },
     Precio: {
-        type: Double,
+        type: Number,
         required: true
     },
-    Unidades: {
-        type: Number,
+    Categoria: {
+        type: String,
     },
     Imagen: {
         type: String,

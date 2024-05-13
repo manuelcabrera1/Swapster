@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 //import './App.css'; 
 import './Stylesheets/login.css';
-import TopBar from './Componentes/topBar';
 
 const LoginPage = () => {
   const [correo, setCorreo] = useState('');
@@ -29,8 +28,6 @@ const LoginPage = () => {
 
   return (
     <body>
-      <TopBar/>
-      
       <div class="background">
           <div class="shape"></div>
           <div class="shape"></div>

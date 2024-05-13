@@ -31,7 +31,7 @@ router.get('/:productId', async (req, res) => {
 });
 
 
-// Crear un nuevo producto
+// Crear un producto
 router.post('/', async (req, res) => {
     try {
         const {Nombre, Descripcion, Precio, Imagen } = req.body;
@@ -79,5 +79,7 @@ router.delete('/:productId', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+
 
 module.exports = router;

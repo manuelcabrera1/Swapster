@@ -1,22 +1,3 @@
-/*import React from 'react';
-import logo from '../images/logo2.png';
-import React, { useState } from 'react';
-import axios from 'axios';
-
-const NavBar = ({ userLoggedIn }) => {
-  return (
-    <div className="nav-container">
-      <img src={logo} alt="Swapster Logo" className="nav-logo" />
-      <input type="search" placeholder="Buscar..." className="nav-search"/>
-      <button className="nav-button">
-        {userLoggedIn ? 'Perfil' : 'Iniciar Sesión'}
-      </button>
-    </div>
-  );
-};
-
-export default NavBar;*/
-
 import React from 'react';
 import { useState } from 'react';
 import '../Stylesheets/topBar.css'; 

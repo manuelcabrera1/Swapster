@@ -11,7 +11,10 @@ router.post('/', async (req, res) => {
         var result=await Usuario.findOne({Correo: correo, Password: contraseña});
 
         if (result)
+        {
             res.status(200).json(result)
+            req.session.usuario = result;
+        }
         else 
             res.status(400).json("Usuario no encontrado")
 
