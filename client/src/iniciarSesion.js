@@ -2,23 +2,23 @@ import React, { useState } from 'react';
 import axios from 'axios';
 //import './App.css'; 
 import './Stylesheets/login.css';
+import { useHistory } from 'react-router-dom';
 
 const LoginPage = () => {
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [mostrarContraseña, setMostrarContraseña] = useState(false);
   const [mensaje, setMensaje] = useState('');
+  const history = useHistory();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
-        correo,
-        contraseña
-      });
-      console.log('Inicio de sesión exitoso:', response.data);
+      const response = await axios.post('http://localhost:5000/api/usuario/auth/login', {
+        correo,contraseña}, { withCredentials: true});
+      console.log(response.data);
       setMensaje('Inicio de sesión exitoso');
-      window.location.href = '/';
+      history.push('/');
       // Aquí podrías redirigir al usuario o guardar el token de sesión, etc.
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
@@ -27,7 +27,7 @@ const LoginPage = () => {
   };
 
   return (
-    <body>
+    <div>
       <div class="background">
           <div class="shape"></div>
           <div class="shape"></div>
@@ -51,7 +51,6 @@ const LoginPage = () => {
           </label>
 
           <div class="actions">
-              <button type="button" onClick={() => {/* Lógica para volver a la página de inicio */}}>Cancelar</button>
               <button type="submit">Iniciar Sesión</button>
           </div>
 
@@ -63,7 +62,7 @@ const LoginPage = () => {
           <a href="/registro">Crear una cuenta</a>
           </div>
       </form>
-    </body>
+    </div>
   );
 };
 

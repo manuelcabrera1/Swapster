@@ -4,6 +4,8 @@ import MostrarUsuario from './mostrarusuarios'
 import LoginPage from './iniciarSesion'
 import HomePage from './paginaPrincipal'
 import ProductPage from './productPage'
+import SellProductPage from './venderProducto'
+import UserProfile from './perfilUsuario'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -16,6 +18,8 @@ function App(){
                     <Route path='/mostrar' component={MostrarUsuario}/>
                     <Route path='/login' component={LoginPage}/>
                     <Route path='/product/:id' component={ProductPage}/>
+                    <Route path="/vender" component={SellProductPage} />
+                    <Route path='/perfil' component={UserProfile}/>
                     <Route exact path='/' component={HomePage}/>
                 </Switch>
             </div>

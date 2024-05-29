@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 //import './App.css'; // Importar tu archivo CSS personalizado
 import '../src/Stylesheets/login.css';
+import { useHistory } from 'react-router-dom';
 
 const App = () => {
   const [nombre, setNombre] = useState('');
@@ -10,6 +11,7 @@ const App = () => {
   const [correo, setCorreo] = useState('');
   const [password, setPassword] = useState('');
   const [mensaje, setMensaje] = useState('');
+  const history = useHistory();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,7 +22,7 @@ const App = () => {
       Direccion: direccion,
       Correo: correo,
       Password: password,
-      Tipo: 'user',
+      Rol: 'user',
       Productos_vendidos: [],
       Productos_comprados: []
 
@@ -28,10 +30,10 @@ const App = () => {
 
     try {
       
-      const response = await axios.post('http://localhost:5000/api/usuarios', formData);
-      console.log('Productos:', formData.Productos);
+      const response = await axios.post('http://localhost:5000/api/usuario', formData);
       console.log('Usuario creado:', response.data);
       setMensaje('Usuario creado exitosamente');
+      history.push('/login');
     } catch (error) {
       console.error('Error al crear usuario:', error);
       setMensaje('Hubo un problema al crear el usuario');

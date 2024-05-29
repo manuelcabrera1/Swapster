@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Stylesheets/product.css';  // Asegúrate de incluir y enlazar correctamente tu CSS
+import './Stylesheets/product.css'; // Asegúrate de incluir y enlazar correctamente tu CSS
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import TopBar from './Componentes/topBar';
@@ -25,7 +25,7 @@ const ProductPage = () => {
     }
 
     return (
-        <body>
+        <div>
             <TopBar />
             <div className="product-page">
                 <div className="product-card">
@@ -41,14 +41,8 @@ const ProductPage = () => {
                     </div>
                 </div>
             </div>
-        </body>
+        </div>
     );
 };
 
 export default ProductPage;
-
-/* 
-<div className="product-meta">
-                        <span className="product-category">{product.Categoria}</span>
-                    </div>
-*/

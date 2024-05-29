@@ -23,7 +23,7 @@ const MostrarUsuarios = () => {
 
     const handleDelete = async (userId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/usuarios/${userId}`);
+            await axios.delete(`http://localhost:5000/api/usuario/${userId}`);
             // Actualizar la lista de usuarios después de eliminar
             const updatedUsuarios = usuarios.filter((usuario) => usuario._id !== userId);
             setUsuarios(updatedUsuarios);
