@@ -17,10 +17,10 @@ const SellProductPage = () => {
       try {
         const response = await axios.get('http://localhost:5000/api/usuario/auth/session', { withCredentials: true });
         if (response.status !== 200) {
-          history.push('/login'); // Redirige a la página de login si no está autenticado
+          history.push('/login'); 
         }
       } catch (error) {
-        history.push('/login'); // Redirige a la página de login si ocurre un error al verificar la sesión
+        history.push('/login'); 
       }
     };
 
@@ -59,7 +59,7 @@ const SellProductPage = () => {
       await axios.post('http://localhost:5000/api/producto/create', productoData, { withCredentials: true });
 
       setMensaje('Producto puesto en venta exitosamente');
-      history.push('/');
+      history.push('/perfil');
     } catch (error) {
       console.error('Error al crear el producto:', error);
       setMensaje('Hubo un problema al crear el producto');

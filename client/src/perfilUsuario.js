@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Stylesheets/userProfile.css'; // Asegúrate de crear un archivo CSS para estilizar el componente
+import { Link, useHistory } from 'react-router-dom'; 
+import './Stylesheets/userProfile.css'; 
 import TopBar from './Componentes/topBar';
 
 const UserProfile = () => {
@@ -9,9 +10,10 @@ const UserProfile = () => {
     Apellidos: '',
     Direccion: '',
     Correo: '',
-    Productos: []
+    Productos_vendidos: []
   });
   const [mensaje, setMensaje] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -21,9 +23,11 @@ const UserProfile = () => {
           const userId = sessionResponse.data._id.toString();
           const userResponse = await axios.get(`http://localhost:5000/api/usuario/${userId}`, { withCredentials: true });
           setUserInfo(userResponse.data);
+          console.log('Información del usuario:', userResponse.data);
         }
       } catch (error) {
         console.error('Error al obtener la información del usuario:', error);
+        history.push('/');
       }
     };
 
@@ -36,6 +40,18 @@ const UserProfile = () => {
       window.location.href = '/';
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
+    }
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/producto/${productId}`, { withCredentials: true });
+      setUserInfo({
+        ...userInfo,
+        Productos_vendidos: userInfo.Productos_vendidos.filter(product => product._id !== productId)
+      });
+    } catch (error) {
+      console.error('Error al eliminar el producto:', error);
     }
   };
 
@@ -52,20 +68,36 @@ const UserProfile = () => {
           <button onClick={() => { window.location.href = '/modificar-perfil'; }} className="modify-button">Modificar Perfil</button>
           <button onClick={handleLogout} className="logout-button">Cerrar Sesión</button>
         </div>
+        <hr />
+        <br />
         <h3>Productos en Venta</h3>
+        <ul className="product-list">
+          {userInfo.Productos_vendidos.map(product => (
+            <li key={product._id}>
+              <Link to={`/product/${product._id}`}>
+                {product.Nombre} - {product.Precio} EUR
+              </Link>
+              <div className="product-buttons">
+                <button 
+                  className="modify-product-button"
+                  onClick={() => history.push(`/modificar-producto/${product._id}`)}
+                >
+                  Modificar
+                </button>
+                <button 
+                  className="delete-product-button"
+                  onClick={() => handleDeleteProduct(product._id)}
+                >
+                  Eliminar
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+        {mensaje && <p>{mensaje}</p>}
       </div>
     </div>
   );
 };
 
 export default UserProfile;
-
-/*
-<ul className="product-list">
-          {userInfo.Productos.map(product => (
-            <li key={product._id}>
-              {product.Nombre} - {product.Precio} EUR
-            </li>
-          ))}
-        </ul>
-*/

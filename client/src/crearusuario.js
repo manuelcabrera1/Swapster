@@ -22,10 +22,6 @@ const App = () => {
       Direccion: direccion,
       Correo: correo,
       Password: password,
-      Rol: 'user',
-      Productos_vendidos: [],
-      Productos_comprados: []
-
     };
 
     try {

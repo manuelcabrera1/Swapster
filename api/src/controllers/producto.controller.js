@@ -1,5 +1,6 @@
 const productoCtrl = {};
 const Producto = require('../models/Producto');
+const Usuario = require('../models/Usuario')
 
 productoCtrl.getAllProducts = async (req, res) => {
     try {
@@ -12,17 +13,43 @@ productoCtrl.getAllProducts = async (req, res) => {
 };
 
 
-// Crear un producto
-productoCtrl.createProduct = async (req, res) => {
+// Vender un producto
+productoCtrl.venderProducto = async (req, res) => {
     try {
-        const {Nombre, Descripcion, Precio, Imagen } = req.body;
-        const newProducto = new Producto({Nombre, Descripcion, Precio, Imagen });
-        console.log(newProducto);
-        const savedProducto = await newProducto.save();
-        res.status(201).json(savedProducto);
+        if (req.session && req.session.idUsuario) {
+            const { Nombre, Descripcion, Precio, Imagen } = req.body;
+
+            //comprobamos que el proucto no exista
+            const productoExistente = await Usuario.findOne({Nombre,Descripcion,Precio,Imagen});
+            if (productoExistente) {
+                return res.status(400).json({ message: 'El correo electrónico ya está registrado' });
+            }
+
+            // Crear el producto en caso de que no exista
+            const newProducto = new Producto({ Nombre, Descripcion, Precio, Imagen });
+            const savedProducto = await newProducto.save();
+            console.log('Producto guardado:', savedProducto);
+
+            // Añadir el producto a la lista de productos vendidos del usuario
+            const usuarioActualizado = await Usuario.findByIdAndUpdate(
+                req.session.idUsuario,
+                { $push: { Productos_vendidos: savedProducto._id } }, // Asegúrate de que el campo coincide con el esquema
+                { new: true }
+            );
+
+            if (!usuarioActualizado) {
+                return res.status(404).json({ message: 'Usuario no encontrado' });
+            }
+
+            console.log('Usuario actualizado:', usuarioActualizado);
+
+            return res.status(201).json({ producto: savedProducto });
+        } else {
+            return res.status(401).json({ message: 'Error al vender el producto' });
+        }
     } catch (error) {
-        console.error('Error al crear el producto:', error);
-        res.status(500).json({ error: 'Hubo un problema al crear el producto' });
+        console.error('Error al vender el producto:', error);
+        return res.status(500).json({ error: 'Hubo un problema al crear el producto' });
     }
 };
 

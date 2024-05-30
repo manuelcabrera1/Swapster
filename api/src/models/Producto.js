@@ -18,9 +18,13 @@ const ProductoSchema = new mongoose.Schema({
     },
     Imagen: {
         type: String,
+    },
+    Vendido: {
+        type:Boolean,
+        default: false
     }
 }, {
     timestamps: true // Agrega timestamps automáticamente (createdAt, updatedAt)
 });
 
-module.exports = mongoose.model('Productos', ProductoSchema)
+module.exports = mongoose.model('Producto', ProductoSchema)

@@ -5,12 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var session = require('express-session')
-
+var env = require('dotenv').config();
+var stripe = require('stripe')
 var indexRouter = require('./routes/index');
 var mongooseRouter = require('./routes/mongoose');
 var productoRouter = require('./routes/producto');
 var usuarioRouter = require('./routes/usuario')
-var perfilRouter = require('./routes/perfil')
+var paymentRouter = require('./routes/pago')
 
 var app = express();
 
@@ -40,7 +41,7 @@ app.use('/', indexRouter);
 app.use('/mongoose', mongooseRouter);
 app.use('/api/producto', productoRouter);
 app.use('/api/usuario', usuarioRouter);
-app.use('/api/perfil', perfilRouter);
+app.use('/api/payment', paymentRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #b4dde5;
+  }
+  
+  .modify-profile {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background: rgba(8,7,16,0.8);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 3px 3px rgb(255, 129, 27), -1em 0 .4em rgb(246, 132, 18);
+  }
+  
+  .modify-profile h2 {
+    text-align: center;
+    margin-bottom: 650px;
+    color: white;
+  }
+  
+  .user-info {
+    margin-top: 20px;
+    height: auto;
+    width: auto;
+}
+
+  .user-info .form-group {
+    margin-bottom: 10px;
+  }
+  
+  .user-info .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .user-info .form-group input,
+  .user-info .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #373333;
+    font-size: 16px;
+    min-width: 400px;
+  }
+  
+  .modify-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+  }
+  
+  .modify-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .modify-profile p {
+    text-align: center;
+    color: white;
+  }
+  

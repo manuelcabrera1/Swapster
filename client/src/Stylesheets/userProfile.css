@@ -1,72 +1,117 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #b4dde5;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #b4dde5;
 }
-.user-profile {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background: rgba(8,7,16,0.8);
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .user-profile h2, .user-profile h3 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: white;
-  }
-  
-  .user-info p {
-    font-size: 16px;
-    margin: 10px 0;
-    color: white;
-  }
-  
-  .user-info .modify-button, .user-info .logout-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .modify-button {
-    background-color: #007BFF;
-    color: white;
-  }
-  
-  .modify-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .logout-button {
-    background-color: #FF4136;
-    color: white;
-  }
-  
-  .logout-button:hover {
-    background-color: #FF0000;
-  }
-  
-  .product-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .product-list li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
+.user-profile {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(8, 7, 16, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: fixed; 
+  top: 10%; 
+  left: 50%;
+  transform: translateX(-50%); 
+  overflow-y: auto;
+  max-height: 80vh; 
+}
+
+.user-profile h2, .user-profile h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.user-info p {
+  font-size: 16px;
+  margin: 10px 0;
+  color: white;
+}
+
+.user-info .modify-button, .user-info .logout-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.modify-button {
+  background-color: #007BFF;
+  color: white;
+}
+
+.modify-button:hover {
+  background-color: #0056b3;
+}
+
+.logout-button {
+  background-color: #FF4136;
+  color: white;
+}
+
+.logout-button:hover {
+  background-color: #FF0000;
+}
+
+.product-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.product-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-list a {
+  color: white;
+  text-decoration: none;
+}
+
+.product-list a:hover {
+  text-decoration: underline;
+}
+
+.product-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.product-buttons .modify-product-button, .product-buttons .delete-product-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.product-buttons .modify-product-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.product-buttons .modify-product-button:hover {
+  background-color: #218838;
+}
+
+.product-buttons .delete-product-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.product-buttons .delete-product-button:hover {
+  background-color: #c82333;
+}

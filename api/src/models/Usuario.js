@@ -27,15 +27,15 @@ const UsuarioSchema = new mongoose.Schema({
         required: true,
         enum: ['user', 'admin']
     },
-    Productos_vendidos:{
-        type: Array
-    },
-    Productos_comprados:{
-        type: Array
-    }
+    Productos_vendidos: [{ 
+        type: mongoose.Schema.Types.ObjectId, ref: 'Producto' 
+    }], 
+    Productos_comprados: [{ 
+        type: mongoose.Schema.Types.ObjectId, ref: 'Producto' 
+    }]
 
 }, {
     timestamps: true // Agrega timestamps automáticamente (createdAt, updatedAt)
 });
 
-module.exports = mongoose.model('Usuarios', UsuarioSchema)
+module.exports = mongoose.model('Usuario', UsuarioSchema)

@@ -1,0 +1,61 @@
+   .pasarela-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    background-color: #b4dde5;
+  }
+  
+  .checkout-form-container {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(8, 7, 16, 0.8);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 3px 3px rgb(255, 129, 27), -1em 0 .4em rgb(246, 132, 18);
+  }
+  
+  .product-card {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .product-info {
+    color: white;
+  }
+  
+  .checkout-form {
+    width: 80%;
+  }
+  
+  .checkout-form button {
+    width: 30%;
+    padding: 10px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .checkout-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .checkout-form .card-element {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 50%;
+    background-color: #fff;
+    border-radius: 4px;
+  }
+  

@@ -6,8 +6,16 @@ const rolesPermitidos = require('../middleware/roles');
 // Crear una cuenta nueva
 UsuarioCtrl.crearCuenta = async (req, res) => {
     try {
-        const { Nombre, Apellidos, Direccion, Correo, Password, Rol, Productos_vendidos, Productos_comprados} = req.body;
-        const newUser = new Usuario({ Nombre, Apellidos, Direccion, Correo, Rol, Password, Productos_vendidos: Productos_vendidos || [], Productos_comprados: Productos_comprados});
+        const { Nombre, Apellidos, Direccion, Correo, Password} = req.body;
+
+        //comprobamos que el usuario no exista
+        const usuarioExistente = await Usuario.findOne({Correo});
+        if (usuarioExistente) {
+            return res.status(400).json({ message: 'El correo electrónico ya está registrado' });
+        }
+
+        //si no existe lo creamos
+        const newUser = new Usuario({ Nombre, Apellidos, Direccion, Correo, Rol:'user', Password});
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
     } catch (error) {
@@ -17,21 +25,22 @@ UsuarioCtrl.crearCuenta = async (req, res) => {
 };
 
 UsuarioCtrl.getUserById = async (req, res) => {
-    try
-    {
+    try {
         const usuarioId = req.params.userId;
-        const usuario = await Usuario.findById(usuarioId);
-        
-        if (!usuario)
-            res.status(400).json("Usuario no encontrado");
 
-        res.json(usuario);
+        // Usar populate para cargar los productos vendidos
+        const usuario = await Usuario.findById(usuarioId).populate('Productos_vendidos');
 
-    } catch(error) {
-        res.status(501).json({error: 'Acceso no autorizado'});
+        if (!usuario) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        res.status(200).json(usuario);
+    } catch (error) {
+        console.error('Error al obtener el usuario:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
     }
-  
-}
+};
 
 
 UsuarioCtrl.login = async (req, res) => {
@@ -69,7 +78,7 @@ UsuarioCtrl.logout = async (req, res) => {
     });
   };
 
-UsuarioCtrl.getSession = async (req, res) => {
+UsuarioCtrl.getSessionData = async (req, res) => {
     try
     {
         if (req.session && req.session.idUsuario) {
@@ -91,4 +100,27 @@ UsuarioCtrl.getSession = async (req, res) => {
     
   };
 
+UsuarioCtrl.modificarPerfil = async (req, res) => {
+    try
+    {
+        if (req.session && req.session.idUsuario) {
+            const { Nombre, Apellidos, Direccion, Correo} = req.body;
+            const usuario = await Usuario.findByIdAndUpdate(req.session.idUsuario, { Nombre, Apellidos, Direccion, Correo},{ new: true});
+            if (!usuario)
+            {
+                res.status(401).json({ message: 'No autenticado' });
+
+            }
+
+            res.status(200).json({ message: 'Usuario modificado correctamente' });
+        } else {
+            res.status(401).json({ message: 'No autenticado' });
+        }
+    } catch(error) {
+        res.status(501).json({message:error});
+
+    }
+    
+};
+  
 module.exports = UsuarioCtrl;

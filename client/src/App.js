@@ -6,6 +6,11 @@ import HomePage from './paginaPrincipal'
 import ProductPage from './productPage'
 import SellProductPage from './venderProducto'
 import UserProfile from './perfilUsuario'
+import ModifyProfile from './modificarPerfil'
+import ModifyProduct from './modificarProducto'
+import Success from './success';
+import Cancel from './cancel';
+import Pasarela from './pasarela'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -20,7 +25,12 @@ function App(){
                     <Route path='/product/:id' component={ProductPage}/>
                     <Route path="/vender" component={SellProductPage} />
                     <Route path='/perfil' component={UserProfile}/>
+                    <Route path='/modificar-perfil' component={ModifyProfile}/>
+                    <Route path='/modificar-producto/:productId' component={ModifyProduct}/>
+                    <Route path='/success' component={Success}/>
+                    <Route path='/cancel' component={Cancel}/>
                     <Route exact path='/' component={HomePage}/>
+                    <Route path='/pasarela/:productId' component={Pasarela}/>
                 </Switch>
             </div>
         </BrowserRouter>
