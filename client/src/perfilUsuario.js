@@ -6,11 +6,13 @@ import TopBar from './Componentes/topBar';
 
 const UserProfile = () => {
   const [userInfo, setUserInfo] = useState({
+    _id: '',
     Nombre: '',
     Apellidos: '',
     Direccion: '',
     Correo: '',
-    Productos_vendidos: []
+    Productos_vendidos: [],
+    Productos_comprados: []
   });
   const [mensaje, setMensaje] = useState('');
   const history = useHistory();
@@ -19,12 +21,7 @@ const UserProfile = () => {
     const fetchUserInfo = async () => {
       try {
         const sessionResponse = await axios.get('http://localhost:5000/api/usuario/auth/session', { withCredentials: true });
-        if (sessionResponse.status === 200) {
-          const userId = sessionResponse.data._id.toString();
-          const userResponse = await axios.get(`http://localhost:5000/api/usuario/${userId}`, { withCredentials: true });
-          setUserInfo(userResponse.data);
-          console.log('Información del usuario:', userResponse.data);
-        }
+        setUserInfo(sessionResponse.data);
       } catch (error) {
         console.error('Error al obtener la información del usuario:', error);
         history.push('/');
@@ -32,7 +29,7 @@ const UserProfile = () => {
     };
 
     fetchUserInfo();
-  }, []);
+  }, [history]);
 
   const handleLogout = async () => {
     try {
@@ -55,6 +52,9 @@ const UserProfile = () => {
     }
   };
 
+  const handleReview = (productId) => {};
+  const handleTrackOrder = (productId) => {};
+
   return (
     <div>
       <TopBar />
@@ -65,7 +65,8 @@ const UserProfile = () => {
           <p><strong>Apellidos:</strong> {userInfo.Apellidos}</p>
           <p><strong>Dirección:</strong> {userInfo.Direccion}</p>
           <p><strong>Correo:</strong> {userInfo.Correo}</p>
-          <button onClick={() => { window.location.href = '/modificar-perfil'; }} className="modify-button">Modificar Perfil</button>
+          <button onClick={() => { window.location.href = `/modificar-perfil/${userInfo._id}`; }} className="modify-button">Modificar Perfil</button>
+          <button onClick={() => { window.location.href = '/favoritos'; }} className="favs-button">❤ Favoritos</button>
           <button onClick={handleLogout} className="logout-button">Cerrar Sesión</button>
         </div>
         <hr />
@@ -79,6 +80,12 @@ const UserProfile = () => {
               </Link>
               <div className="product-buttons">
                 <button 
+                  className={product.IdComprador ? "sold-button" : "onsale-button"}
+                  onClick={() => product.IdComprador && history.push(`/venta/${product._id}`)}
+                >
+                  {product.IdComprador ? "Vendido" : "En venta"}
+                </button>
+                <button 
                   className="modify-product-button"
                   onClick={() => history.push(`/modificar-producto/${product._id}`)}
                 >
@@ -89,6 +96,31 @@ const UserProfile = () => {
                   onClick={() => handleDeleteProduct(product._id)}
                 >
                   Eliminar
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <br />
+        <h3>Productos Comprados</h3>
+        <ul className="product-list">
+          {userInfo.Productos_comprados.map(product => (
+            <li key={product._id}>
+              <Link to={`/product/${product._id}`}>
+                {product.Nombre} - {product.Precio} EUR 
+              </Link>
+              <div className="product-buttons">
+                <button 
+                  className="add-review-button"
+                  onClick={() => handleReview(product._id)}
+                >
+                  Añadir Reseña
+                </button>
+                <button 
+                  className="track-order-button"
+                  onClick={() => handleTrackOrder(product._id)} 
+                >
+                  Rastrear Pedido
                 </button>
               </div>
             </li>

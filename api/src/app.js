@@ -33,8 +33,12 @@ app.use(session(
     secret:'secreto',
     resave: false,
     saveUninitialized: true,
-    cookie: {}
-  }));
+    cookie: {
+      secure:false,
+      sameSite: 'Lax'
+    }
+  }
+));
 
 
 app.use('/', indexRouter);

@@ -34,31 +34,47 @@
   color: #e5e5e5; /* Color del placeholder */
 }
 
-.session-button button,
-.sell-button button {
-  padding: 15px 15px; /* Basado en el estilo de tu botón */
+.session-buttons,
+.admin-buttons {
+  display: flex;
+  gap: 10px; /* Espacio entre botones */
+}
+
+.session-button,
+.sell-button,
+.admin-button {
+  padding: 0.5rem 1rem;
   border-radius: 5px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.session-button button {
+.session-button {
   background-color: #1845ad; /* Azul gradient del primer .shape */
   color: #ffffff;
 }
 
-.session-button button:hover {
+.session-button:hover {
   background-color: #23a2f6; /* Color más claro al pasar el mouse */
 }
 
-.sell-button button {
+.sell-button {
   background-color: #ff512f; /* Naranja-rojo gradient del segundo .shape */
   color: #ffffff;
 }
 
-.sell-button button:hover {
+.sell-button:hover {
   background-color: #f09819; /* Color más claro al pasar el mouse */
+}
+
+.admin-button {
+  background-color: #6c757d; /* Gris para botones de administrador */
+  color: #ffffff;
+}
+
+.admin-button:hover {
+  background-color: #5a6268; /* Color más claro al pasar el mouse */
 }
 
 /* Responsive design */
@@ -73,16 +89,17 @@
     margin-bottom: 0.5rem;
   }
 
-  .session-button,
-  .sell-button {
+  .session-buttons,
+  .sell-button,
+  .admin-buttons {
     order: 2;
-    display: flex;
     justify-content: center;
   }
 
   .logo,
-  .session-button,
-  .sell-button {
+  .session-buttons,
+  .sell-button,
+  .admin-buttons {
     margin-bottom: 0.5rem;
   }
 }

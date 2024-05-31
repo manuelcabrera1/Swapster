@@ -11,6 +11,9 @@ import ModifyProduct from './modificarProducto'
 import Success from './success';
 import Cancel from './cancel';
 import Pasarela from './pasarela'
+import Favorites from './favoritos'
+import AdminUserList from './usuariosLista'
+import SaleDetails from './venta'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -25,12 +28,15 @@ function App(){
                     <Route path='/product/:id' component={ProductPage}/>
                     <Route path="/vender" component={SellProductPage} />
                     <Route path='/perfil' component={UserProfile}/>
-                    <Route path='/modificar-perfil' component={ModifyProfile}/>
+                    <Route path='/modificar-perfil/:id' component={ModifyProfile}/>
                     <Route path='/modificar-producto/:productId' component={ModifyProduct}/>
                     <Route path='/success' component={Success}/>
                     <Route path='/cancel' component={Cancel}/>
-                    <Route exact path='/' component={HomePage}/>
                     <Route path='/pasarela/:productId' component={Pasarela}/>
+                    <Route path='/favoritos' component={Favorites}/>
+                    <Route path='/usuarios' component={AdminUserList}/>
+                    <Route path='/venta/:idProducto' component={SaleDetails}/>
+                    <Route exact path='/' component={HomePage}/>
                 </Switch>
             </div>
         </BrowserRouter>

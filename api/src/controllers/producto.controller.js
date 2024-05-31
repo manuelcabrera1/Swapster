@@ -4,7 +4,7 @@ const Usuario = require('../models/Usuario')
 
 productoCtrl.getAllProducts = async (req, res) => {
     try {
-        const productos = await Producto.find();
+        const productos = await Producto.find({IdComprador:null}).sort({ createdAt: -1 });
         res.json(productos);
     } catch (error) {
         console.error('Error al obtener todos los productos:', error);
@@ -20,9 +20,9 @@ productoCtrl.venderProducto = async (req, res) => {
             const { Nombre, Descripcion, Precio, Imagen } = req.body;
 
             //comprobamos que el proucto no exista
-            const productoExistente = await Usuario.findOne({Nombre,Descripcion,Precio,Imagen});
+            const productoExistente = await Producto.findOne({Nombre,Descripcion,Precio,Imagen});
             if (productoExistente) {
-                return res.status(400).json({ message: 'El correo electrónico ya está registrado' });
+                return res.status(400).json({ message: 'El producto ya está registrado' });
             }
 
             // Crear el producto en caso de que no exista
@@ -43,7 +43,7 @@ productoCtrl.venderProducto = async (req, res) => {
 
             console.log('Usuario actualizado:', usuarioActualizado);
 
-            return res.status(201).json({ producto: savedProducto });
+            return res.status(200).json({ producto: savedProducto });
         } else {
             return res.status(401).json({ message: 'Error al vender el producto' });
         }
@@ -53,13 +53,66 @@ productoCtrl.venderProducto = async (req, res) => {
     }
 };
 
+productoCtrl.addToFavourites = async (req, res) => {
+    try
+    {
+        if (req.session && req.session.idUsuario)   {
+            const {productId} = req.body;
+            const usuarioActualizado = await Usuario.findByIdAndUpdate(
+                req.session.idUsuario, 
+                { $push: {Favoritos: productId} },
+                {new:true}
+            );
+            if (!usuarioActualizado) {
+                return res.status(401).json({ message: 'Usuario no encontrado' });
+            }
+
+            res.status(200).json({ message: 'Producto añadido a favoritos correctamente' });
+    
+        }
+        else {
+            return res.status(401).json({message: 'No autorizado'})
+        }
+    }
+    catch (error) {
+        res.status(500).json({message:error});
+    }
+    
+};
+
+productoCtrl.deleteFromFavourites = async (req, res) => {
+    try
+    {
+        if (req.session && req.session.idUsuario)   {
+            const {productId} = req.body;
+            const usuarioActualizado = await Usuario.findByIdAndUpdate(
+                req.session.idUsuario, 
+                { $pull: {Favoritos: productId} },
+                {new:true}
+            );
+            if (!usuarioActualizado) {
+                return res.status(401).json({ message: 'Usuario no encontrado' });
+            }
+
+            res.status(200).json({ message: 'Producto añadido a favoritos correctamente' });
+    
+        }
+        else {
+            return res.status(401).json({message: 'No autorizado'})
+        }
+    }
+    catch (error) {
+        res.status(500).json({message:error});
+    }
+    
+};
 
 
 // Obtener un producto por su _id
 productoCtrl.getProductById =  async (req, res) => {
     try {
         const productId = req.params.productId;
-        const product = await Producto.findById(productId);
+        const product = await Producto.findById(productId).populate('IdComprador', 'Nombre Apellidos Correo Direccion');
 
         if (!product) {
             return res.status(404).json({ error: 'Producto no encontrado' });

@@ -18,7 +18,8 @@ body {
   left: 50%;
   transform: translateX(-50%); 
   overflow-y: auto;
-  max-height: 80vh; 
+  max-height: 85vh;
+  box-shadow: 3px 3px rgb(255, 129, 27), -1em 0 .4em rgb(246, 132, 18); 
 }
 
 .user-profile h2, .user-profile h3 {
@@ -33,7 +34,7 @@ body {
   color: white;
 }
 
-.user-info .modify-button, .user-info .logout-button {
+.user-info .modify-button, .user-info .logout-button, .user-info .favs-button{
   display: block;
   width: 100%;
   padding: 10px;
@@ -53,12 +54,39 @@ body {
   background-color: #0056b3;
 }
 
+.favs-button {
+  background-color: #ff4081;
+  color: white;
+}
+
+.favs-button:hover {
+  background-color: #ff1764;
+}
+
 .logout-button {
   background-color: #FF4136;
   color: white;
 }
 
 .logout-button:hover {
+  background-color: #FF0000;
+}
+
+.add-review-button {
+  background-color: #FF4136;
+  color: white;
+}
+
+.add-review-button:hover {
+  background-color: #FF0000;
+}
+
+.track-order-button {
+  background-color: #FF4136;
+  color: white;
+}
+
+.track-order-button:hover {
   background-color: #FF0000;
 }
 
@@ -90,7 +118,7 @@ body {
   gap: 10px;
 }
 
-.product-buttons .modify-product-button, .product-buttons .delete-product-button {
+.product-buttons .modify-product-button, .product-buttons .delete-product-button, .product-buttons .add-review-button, .product-buttons .track-order-button, .product-buttons .sold-button, .product-buttons .onsale-button{
   padding: 5px 10px;
   border: none;
   border-radius: 4px;
@@ -114,4 +142,32 @@ body {
 
 .product-buttons .delete-product-button:hover {
   background-color: #c82333;
+}
+
+.product-buttons .add-review-button {
+  background-color: #FF4136;
+  color: white;
+}
+
+.product-buttons .add-review-button:hover {
+  background-color: #FF0000;
+}
+
+.product-buttons .track-order-button {
+  background-color: #FF4136;
+  color: white;
+}
+
+.product-buttons .track-order-button:hover {
+  background-color: #FF0000;
+}
+
+.sold-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.onsale-button {
+  background-color: #ffc107;
+  color: black;
 }

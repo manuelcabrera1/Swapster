@@ -32,6 +32,9 @@ const UsuarioSchema = new mongoose.Schema({
     }], 
     Productos_comprados: [{ 
         type: mongoose.Schema.Types.ObjectId, ref: 'Producto' 
+    }], 
+    Favoritos: [{ 
+    type: mongoose.Schema.Types.ObjectId, ref: 'Producto' 
     }]
 
 }, {

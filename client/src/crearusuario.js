@@ -37,23 +37,27 @@ const App = () => {
   };
 
   return (
-    <body>
-      <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
-      </div>
+    <div className="App">
+      <main>
+        <div class="background">
+          <div class="shape"></div>
+          <div class="shape"></div>
+        </div>
 
-      <form onSubmit={handleSubmit}>
-        <h1>Crear Cuenta</h1>
-        <input type="text" required placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
-        <input type="text" required placeholder="Apellidos" value={apellidos} onChange={(e) => setApellidos(e.target.value)} />
-        <input type="text" required placeholder="Dirección" value={direccion} onChange={(e) => setDireccion(e.target.value)} />
-        <input type="email" required placeholder="Correo" value={correo} onChange={(e) => setCorreo(e.target.value)} />
-        <input type="password" required placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <button type="submit">Confirmar</button>
-      </form>
-      {mensaje && <p>{mensaje}</p>}
-    </body>
+        <form onSubmit={handleSubmit}>
+          <h1>Crear Cuenta</h1>
+          <input type="text" required placeholder="Nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+          <input type="text" required placeholder="Apellidos" value={apellidos} onChange={(e) => setApellidos(e.target.value)} />
+          <input type="text" required placeholder="Dirección" value={direccion} onChange={(e) => setDireccion(e.target.value)} />
+          <input type="email" required placeholder="Correo" value={correo} onChange={(e) => setCorreo(e.target.value)} />
+          <input type="password" required placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} />
+          
+          <button type="submit">Confirmar</button>
+          <button onClick={() => history.push('/')}>Cancelar</button>
+        </form>
+        {mensaje && <p>{mensaje}</p>}
+      </main>
+    </div>
   );
 };
 

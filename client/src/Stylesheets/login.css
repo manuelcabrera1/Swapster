@@ -1,28 +1,49 @@
+/* src/Stylesheets/login.css */
 *,
 *:before,
-*:after{
+*:after {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-body{
-    background-color: #080710;
+
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
-.background{
+
+.App {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente el contenido */
+    align-items: center; /* Centra horizontalmente el contenido */
+}
+
+.background {
     width: 430px;
     height: 520px;
     position: absolute;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
 }
-.background .shape{
+
+.background .shape {
     height: 200px;
     width: 200px;
     position: absolute;
     border-radius: 50%;
 }
-.shape:first-child{
+
+.shape:first-child {
     background: linear-gradient(
         #1845ad,
         #23a2f6
@@ -30,7 +51,8 @@ body{
     left: -80px;
     top: -80px;
 }
-.shape:last-child{
+
+.shape:last-child {
     background: linear-gradient(
         to right,
         #ff512f,
@@ -39,55 +61,61 @@ body{
     right: -30px;
     bottom: -80px;
 }
-form{
+
+form {
     height: 520px;
     width: 400px;
-    background-color: rgba(8,7,16,0.8);
+    background-color: rgba(8, 7, 16, 0.8);
     position: absolute;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
     border-radius: 10px;
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
     padding: 50px 35px;
 }
-form *{
-    font-family: 'Poppins',sans-serif;
+
+form * {
+    font-family: 'Poppins', sans-serif;
     color: #ffffff;
     letter-spacing: 0.5px;
     outline: none;
     border: none;
 }
-form h3{
+
+form h1 {
     font-size: 32px;
     font-weight: 500;
     line-height: 42px;
     text-align: center;
 }
 
-label{
+label {
     display: block;
     margin-top: 20px;
     font-size: 16px;
     font-weight: 500;
 }
-input{
+
+input {
     display: block;
     height: 50px;
     width: 100%;
-    background-color: rgba(255,255,255,0.07);
+    background-color: rgba(255, 255, 255, 0.07);
     border-radius: 3px;
     padding: 0 10px;
     margin-top: 8px;
     font-size: 14px;
     font-weight: 300;
 }
-::placeholder{
+
+::placeholder {
     color: #e5e5e5;
 }
-button{
+
+button {
     margin-top: 10px;
     width: auto;
     background-color: #ffffff;
@@ -99,7 +127,8 @@ button{
     cursor: pointer;
     margin: 10px;
 }
-.checkbox{
+
+.checkbox {
     margin-top: 20px;
     display: flex;
     align-items: center;
@@ -107,7 +136,8 @@ button{
     height: auto;
     width: auto;
 }
-.actions{
+
+.actions {
     margin-top: 30px;
     display: flex;
 }
@@ -117,12 +147,12 @@ button{
     align-items: center; /* Centra los elementos verticalmente */
     font-size: 16px;
     font-weight: 500;
-  }
-  
+}
+
 .checkbox-container .checkmark {
     margin-left: 10px;
 }
-  
+
 input[type="checkbox"] {
     margin-top: 10px;
     display: flex;
@@ -132,11 +162,59 @@ input[type="checkbox"] {
     width: auto;
 }
 
-.links{
+.links {
     margin-top: 15px;
     display: inline;
     align-items: center;
     justify-content: center;
     height: auto;
     width: auto;
+}
+
+.footer {
+    background-color: #080710;
+    color: white;
+    padding: 20px 0;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-about,
+.footer-contact {
+    flex: 1;
+    margin: 0 20px;
+}
+
+.footer-about h4,
+.footer-contact h4 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #ff8143;
+}
+
+.footer-about p,
+.footer-contact p {
+    margin: 5px 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-about,
+    .footer-contact {
+        margin: 10px 0;
+    }
 }

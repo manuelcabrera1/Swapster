@@ -1,8 +1,17 @@
 const UsuarioCtrl = {};
 const Usuario = require('../models/Usuario');
+const Producto = require('../models/Producto');
 const rolesPermitidos = require('../middleware/roles');
 
-
+UsuarioCtrl.getAllUsers = async (req, res) => {
+    try {
+        const usuarios = await Usuario.find({Rol:'user'}).sort({ createdAt: -1 });
+        res.json(usuarios);
+    } catch (error) {
+        console.error('Error al obtener todos los usuarios:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
 // Crear una cuenta nueva
 UsuarioCtrl.crearCuenta = async (req, res) => {
     try {
@@ -26,14 +35,18 @@ UsuarioCtrl.crearCuenta = async (req, res) => {
 
 UsuarioCtrl.getUserById = async (req, res) => {
     try {
-        const usuarioId = req.params.userId;
+        const usuarioId = req.params.id;
 
         // Usar populate para cargar los productos vendidos
-        const usuario = await Usuario.findById(usuarioId).populate('Productos_vendidos');
+        const usuario = await Usuario.findById(usuarioId)
+            .populate('Productos_vendidos')
+            .populate('Productos_comprados')
+            .populate('Favoritos');
 
         if (!usuario) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
+            return res.status(402).json({ message: 'Usuario no encontrado' });
         }
+        usuario.Password = 0;
 
         res.status(200).json(usuario);
     } catch (error) {
@@ -82,11 +95,14 @@ UsuarioCtrl.getSessionData = async (req, res) => {
     try
     {
         if (req.session && req.session.idUsuario) {
-            const usuario = await Usuario.findById(req.session.idUsuario);
+            const usuario = await Usuario.findById(req.session.idUsuario)
+                .populate('Productos_vendidos')
+                .populate('Productos_comprados')
+                .populate('Favoritos');
             usuario.Password = 0;
             if (!usuario)
             {
-                res.status(401).json({ message: 'No autenticado' });
+                res.status(404).json({ message: 'Usuario no encontrado' });
 
             }
             res.status(200).json(usuario);
@@ -100,27 +116,53 @@ UsuarioCtrl.getSessionData = async (req, res) => {
     
   };
 
-UsuarioCtrl.modificarPerfil = async (req, res) => {
+UsuarioCtrl.modifyUserById = async (req, res) => {
     try
     {
-        if (req.session && req.session.idUsuario) {
-            const { Nombre, Apellidos, Direccion, Correo} = req.body;
-            const usuario = await Usuario.findByIdAndUpdate(req.session.idUsuario, { Nombre, Apellidos, Direccion, Correo},{ new: true});
-            if (!usuario)
-            {
-                res.status(401).json({ message: 'No autenticado' });
-
-            }
-
-            res.status(200).json({ message: 'Usuario modificado correctamente' });
-        } else {
-            res.status(401).json({ message: 'No autenticado' });
+        const { Nombre, Apellidos, Direccion, Correo} = req.body;
+        const usuario = await Usuario.findByIdAndUpdate(req.params.id, { Nombre, Apellidos, Direccion, Correo},{ new: true});
+        if (!usuario)
+        {
+            res.status(404).json({ message: 'Usuario no encontrado' });
         }
+        res.status(200).json({ message: 'Usuario modificado correctamente' });
     } catch(error) {
         res.status(501).json({message:error});
 
     }
     
 };
+
+UsuarioCtrl.deleteUserById = async (req, res) => {
+    try {
+        // Obtenemos el usuario a borrar
+        const user = await Usuario.findByIdAndDelete(req.params.id);
+        if (!user) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+
+        const deleteProductPromises = user.Productos_vendidos.map(async (idProducto) => {
+            const deletedProduct = await Producto.findByIdAndDelete(idProducto);
+            if (!deletedProduct) {
+                return { error: `Producto con ID ${idProducto} no encontrado` };
+            }
+        });
+
+        const deletedProducts = await Promise.all(deleteProductPromises);
+
+        const errors = deletedProducts.filter(result => result && result.error);
+        if (errors.length > 0) {
+            return res.status(404).json({ errors });
+        }
+
+        res.status(200).json({ message: 'Usuario modificado correctamente' });
+        
+    } catch(error) {
+        res.status(501).json({ message: error });
+    }
+};
+
+
+
   
 module.exports = UsuarioCtrl;

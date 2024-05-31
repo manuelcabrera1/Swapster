@@ -1,29 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams, useHistory } from 'react-router-dom';
 import './Stylesheets/modProfile.css'; 
 import TopBar from './Componentes/topBar';
-import { useHistory } from 'react-router-dom';
-
 
 const ModifyProfile = () => {
+  const { id } = useParams();
+  const history = useHistory();
   const [userInfo, setUserInfo] = useState({
     Nombre: '',
     Apellidos: '',
     Direccion: '',
     Correo: '',
+    Rol: '',
   });
-  const history = useHistory();
   const [mensaje, setMensaje] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const sessionResponse = await axios.get('http://localhost:5000/api/usuario/auth/session', { withCredentials: true });
         if (sessionResponse.status === 200) {
-          const userId = sessionResponse.data._id.toString();
-          const userResponse = await axios.get(`http://localhost:5000/api/usuario/${userId}`, { withCredentials: true });
-          setUserInfo(userResponse.data);
+          if (sessionResponse.data.Rol === 'admin') {
+            const userResponse = await axios.get(`http://localhost:5000/api/usuario/${id}`, { withCredentials: true });
+            setUserInfo(userResponse.data);
+          } else {
+            setUserInfo(sessionResponse.data);
+          }
         }
+        setIsLoading(false);
       } catch (error) {
         console.error('Error al obtener la información del usuario:', error);
         history.push('/');
@@ -31,7 +37,7 @@ const ModifyProfile = () => {
     };
 
     fetchUserInfo();
-  }, []);
+  }, [id, history]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,14 +47,24 @@ const ModifyProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put('http://localhost:5000/api/usuario', userInfo, { withCredentials: true });
+      await axios.put(`http://localhost:5000/api/usuario/${id}`, userInfo);
       setMensaje('Información actualizada exitosamente');
-      history.push('/perfil');
+
+      const sessionResponse = await axios.get('http://localhost:5000/api/usuario/auth/session', { withCredentials: true });
+      if (sessionResponse.status === 200 && sessionResponse.data.Rol === 'admin') {
+        history.push('/usuarios');
+      } else {
+        history.push('/perfil');
+      }
     } catch (error) {
       console.error('Error al actualizar la información del usuario:', error);
       setMensaje('Hubo un problema al actualizar la información');
     }
   };
+
+  if (isLoading) {
+    return <div>Cargando...</div>;
+  }
 
   return (
     <div>

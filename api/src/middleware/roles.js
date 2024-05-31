@@ -15,6 +15,7 @@ const comprobarAutenticacion = async (req, res, next) => {
         return res.status(500).json({error: 'Acceso no autorizado'});
       }
     } else {
+      console.log('que sepas que aqui se esta metiendo');
       return res.status(401).json({ message: 'Acceso no autorizado' });
     }
 }

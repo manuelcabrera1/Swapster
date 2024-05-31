@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Stylesheets/home.css';
 import TopBar from './Componentes/topBar';
+import Footer from './Componentes/footer';
 import axios from 'axios';
 
 const HomePage = () => {
@@ -27,21 +28,24 @@ const HomePage = () => {
   return (
     <div className="home-pageh">
       <TopBar />
-      <div className="product-listh">
-        {products.map(product => (
-          <div
-            onClick={() => goToProductPage(product._id)}
-            key={product._id}
-            className="product-cardh"
-          >
-            <img src={product.Imagen} alt={product.Nombre} className="product-imageh" />
-            <div className="product-infoh">
-              <h3 className="product-nameh">{product.Nombre}</h3>
-              <p className="product-priceh">{product.Precio} EUR</p>
+      <div className="content">
+        <div className="product-listh">
+          {products.map(product => (
+            <div
+              onClick={() => goToProductPage(product._id)}
+              key={product._id}
+              className="product-cardh"
+            >
+              <img src={product.Imagen} alt={product.Nombre} className="product-imageh" />
+              <div className="product-infoh">
+                <h3 className="product-nameh">{product.Nombre}</h3>
+                <p className="product-priceh">{product.Precio} EUR</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -13,6 +13,7 @@ const ModifyProduct = () => {
     Precio: '',
     Imagen: ''
   });
+  const [userRole, setUserRole] = useState('');
   const [newImage, setNewImage] = useState(null);
   const [mensaje, setMensaje] = useState('');
 
@@ -20,6 +21,7 @@ const ModifyProduct = () => {
     const checkAuthentication = async () => {
         try {
           const sessionResponse = await axios.get('http://localhost:5000/api/usuario/auth/session', { withCredentials: true });
+          setUserRole(sessionResponse.data.Rol);
           if (sessionResponse.status !== 200) {
             history.push('/'); // Redirigir a la página principal si no está autenticado
           }
@@ -77,7 +79,12 @@ const ModifyProduct = () => {
 
       await axios.put(`http://localhost:5000/api/producto/${productId}`, updatedProduct, { withCredentials: true });
       setMensaje('Producto actualizado exitosamente');
-      history.push('/perfil'); // Redirigir al perfil del usuario
+      
+      if (userRole === 'admin') {
+        history.push('/'); // Redirigir a la página principal para admin
+      } else {
+        history.push('/perfil'); // Redirigir al perfil del usuario
+      }
     } catch (error) {
       console.error('Error al actualizar el producto:', error);
       setMensaje('Hubo un problema al actualizar el producto');

@@ -1,14 +1,20 @@
 .home-pageh {
-  width: 100%;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   background-color: #b4dde5;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
 }
 
 .product-listh {
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
-  padding: 20px;
+  justify-content: center; /* Para centrar las tarjetas cuando haya menos de 4 */
 }
 
 .product-cardh {
@@ -16,11 +22,19 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  flex: 1 1 calc(33.333% - 40px); /* Tres columnas con espacio de 20px alrededor */
+  flex: 1 1 calc(25% - 40px); /* Cuatro columnas con espacio de 40px alrededor */
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  box-shadow: 3px 3px rgb(255, 129, 27), -1em 0 .4em rgb(246, 132, 18);
+  max-width: calc(25% - 40px); /* Limita el ancho máximo al 25% del contenedor */
+  box-sizing: border-box; /* Incluye el padding y border en el ancho total */
+  box-shadow: 0 5px 15px rgba(8, 7, 16, 0.8);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-cardh:hover {
+  transform: translateY(-10px); /* Eleva la tarjeta */
+  box-shadow: 0 10px 20px rgba(8, 7, 16, 1); /* Aumenta la sombra */
 }
 
 .product-imageh {
@@ -44,4 +58,24 @@
   font-size: 16px;
   color: #333;
   font-weight: bold;
+}
+
+.remove-favorite-button {
+  background-color: #FF4136;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.remove-favorite-button:hover {
+  background-color: #FF0000;
+}
+
+.home-pageh h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
 }

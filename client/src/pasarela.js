@@ -6,6 +6,7 @@ import { Elements, CardElement, useStripe, useElements } from '@stripe/react-str
 import TopBar from './Componentes/topBar';
 import './Stylesheets/pasarela.css';
 
+
 const stripePromise = loadStripe('pk_test_51PMDKiFpIMUqqwLpja1MeVP4obORZwGmL5gp012Y0k2GOBHlXCsiN9zlEMPQZgMKl1vvBapocSTGF2SsOBxSHZjl00uc2dT4Q2');
 
 const CheckoutForm = ({ product }) => {
@@ -31,9 +32,7 @@ const CheckoutForm = ({ product }) => {
           id,
           idProducto: product._id,
           amount: product.Precio * 100,
-        });
-
-        console.log(data);
+        }, { withCredentials: true});
 
         if (data.paymentIntent && data.paymentIntent.status === 'succeeded') {
           setMessage('Pago exitoso');
@@ -69,8 +68,21 @@ const CheckoutForm = ({ product }) => {
 const Pasarela = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/usuario/auth/session', { withCredentials: true });
+        console.log(response);
+        if (response.status !== 200) {
+          history.push('/login'); 
+        }
+      } catch (error) {
+        history.push('/login'); 
+      }
+    };
+
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/producto/${productId}`);
@@ -79,6 +91,8 @@ const Pasarela = () => {
         console.error('Error fetching product details:', error);
       }
     };
+
+    checkSession();
     fetchProduct();
   }, [productId]);
 

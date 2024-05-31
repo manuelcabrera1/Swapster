@@ -19,9 +19,9 @@ const ProductoSchema = new mongoose.Schema({
     Imagen: {
         type: String,
     },
-    Vendido: {
-        type:Boolean,
-        default: false
+    IdComprador: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Usuario',
+        default:null
     }
 }, {
     timestamps: true // Agrega timestamps automáticamente (createdAt, updatedAt)
