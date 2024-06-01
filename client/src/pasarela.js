@@ -50,7 +50,7 @@ const CheckoutForm = ({ product }) => {
   return (
     <form onSubmit={handleSubmit} className="checkout-form">
       <div className="product-card">
-        <div className="product-info">
+        <div className="product-infop">
           <h2>{product.Nombre}</h2>
           <span className="product-price">{product.Precio} €</span>
           <p className="product-description">{product.Descripcion}</p>
