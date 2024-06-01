@@ -6,13 +6,19 @@ const Usuario = require('../models/Usuario')
 const {comprobarAutenticacion, rolesPermitidos} = require('../middleware/roles');
 
 
-const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
+//const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
+const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY || 'sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+
 
 router.post('/checkout', comprobarAutenticacion, async (req, res) => {
   const { id, idProducto, amount} = req.body;
 
 
   try {
+
+    //comprobamos que recibimos el id de la transaccion, en caso contrario no podremos realizar el pago
+    if (!id)
+        return res.status(500).json({error: 'Error al procesar el pago'});
 
     /*comprobamos que el producto este en la bd, 
     ademas esto nos permitira rescatar informacion del producto para guardar en la info

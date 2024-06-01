@@ -6,7 +6,7 @@ const rolesPermitidos = require('../middleware/roles');
 UsuarioCtrl.getAllUsers = async (req, res) => {
     try {
         const usuarios = await Usuario.find({Rol:'user'}).sort({ createdAt: -1 });
-        res.json(usuarios);
+        res.status(200).json(usuarios);
     } catch (error) {
         console.error('Error al obtener todos los usuarios:', error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -28,7 +28,7 @@ UsuarioCtrl.crearCuenta = async (req, res) => {
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
     } catch (error) {
-        console.error('Error al crear el usuario:', error);
+        //console.error('Error al crear el usuario:', error);
         res.status(500).json({ error: 'Hubo un problema al crear el usuario' });
     }
 };
@@ -44,14 +44,14 @@ UsuarioCtrl.getUserById = async (req, res) => {
             .populate('Favoritos');
 
         if (!usuario) {
-            return res.status(402).json({ message: 'Usuario no encontrado' });
+            return res.status(404).json({ message: 'Usuario no encontrado' });
         }
         usuario.Password = 0;
 
         res.status(200).json(usuario);
     } catch (error) {
         console.error('Error al obtener el usuario:', error);
-        res.status(500).json({ error: 'Error interno del servidor' });
+        res.status(500).json({ message:error});
     }
 };
 
@@ -66,17 +66,17 @@ UsuarioCtrl.login = async (req, res) => {
         {
             if (result.Password!=contraseña)
             {
-                res.status(400).json("Contraseña incorrecta");
+                res.status(400).json({message: 'Contraseña incorrecta'});
             }
             req.session.idUsuario = result._id.toString();
-            res.status(200).json("Inicio de sesión exitoso")    
+            res.status(200).json({message: 'Inicio de sesión exitoso'})    
         }
         else 
-            res.status(400).json("Usuario no encontrado")
+            res.status(404).json({ message: 'Usuario no encontrado'})
 
     } catch (error) {
         console.error('Error al iniciar sesion', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ message:error });
     }
 };
 
@@ -110,7 +110,7 @@ UsuarioCtrl.getSessionData = async (req, res) => {
             res.status(401).json({ message: 'No autenticado' });
         }
     } catch(error) {
-        res.status(501).json({message:error});
+        res.status(500).json({message:error});
 
     }
     
@@ -123,7 +123,7 @@ UsuarioCtrl.modifyUserById = async (req, res) => {
         const usuario = await Usuario.findByIdAndUpdate(req.params.id, { Nombre, Apellidos, Direccion, Correo},{ new: true});
         if (!usuario)
         {
-            res.status(404).json({ message: 'Usuario no encontrado' });
+            return res.status(404).json({ message: 'Usuario no encontrado' });
         }
         res.status(200).json({ message: 'Usuario modificado correctamente' });
     } catch(error) {
@@ -138,7 +138,7 @@ UsuarioCtrl.deleteUserById = async (req, res) => {
         // Obtenemos el usuario a borrar
         const user = await Usuario.findByIdAndDelete(req.params.id);
         if (!user) {
-            return res.status(404).json({ error: 'Usuario no encontrado' });
+            return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
         const deleteProductPromises = user.Productos_vendidos.map(async (idProducto) => {
@@ -155,10 +155,10 @@ UsuarioCtrl.deleteUserById = async (req, res) => {
             return res.status(404).json({ errors });
         }
 
-        res.status(200).json({ message: 'Usuario modificado correctamente' });
+        res.status(200).json({ message: 'Usuario eliminado correctamente' });
         
     } catch(error) {
-        res.status(501).json({ message: error });
+        res.status(500).json({ message: error });
     }
 };
 

@@ -2,7 +2,6 @@ const Usuario = require('../models/Usuario')
 
 const comprobarAutenticacion = async (req, res, next) => {
     if (req.session && req.session.idUsuario) {
-        console.log("Una locura este id", req.session.idUsuario);
       try {
         const usuario = await Usuario.findById(req.session.idUsuario);
         if (!usuario) {
@@ -15,7 +14,6 @@ const comprobarAutenticacion = async (req, res, next) => {
         return res.status(500).json({error: 'Acceso no autorizado'});
       }
     } else {
-      console.log('que sepas que aqui se esta metiendo');
       return res.status(401).json({ message: 'Acceso no autorizado' });
     }
 }
