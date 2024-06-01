@@ -50,10 +50,11 @@ const CheckoutForm = ({ product }) => {
   return (
     <form onSubmit={handleSubmit} className="checkout-form">
       <div className="product-card">
+        <img src={product.Imagen} alt={product.Nombre} className="product-image" />
         <div className="product-infop">
+          <br />
           <h2>{product.Nombre}</h2>
           <span className="product-price">{product.Precio} €</span>
-          <p className="product-description">{product.Descripcion}</p>
         </div>
       </div>
       <CardElement className="card-element" />
@@ -104,11 +105,9 @@ const Pasarela = () => {
     <div>
       <TopBar />
       <div className="pasarela-page">
-        <div className="checkout-form-container">
-          <Elements stripe={stripePromise}>
-            <CheckoutForm product={product} />
-          </Elements>
-        </div>
+        <Elements stripe={stripePromise}>
+          <CheckoutForm product={product} />
+        </Elements>
       </div>
     </div>
   );

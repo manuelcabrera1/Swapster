@@ -69,50 +69,52 @@ const SellProductPage = () => {
   return (
     <div>
       <TopBar />
-      <div className="sell-product-page">
-        <div className="sell-product-container">
-          <h2>Vender un Articulo</h2>
-          <form onSubmit={handleSubmit} className="sell-product-form">
-            <div className="form-group">
-              <label>Nombre del Producto</label>
-              <input
-                type="text"
-                value={nombre}
-                placeholder='Nombre'
-                onChange={(e) => setNombre(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Descripción</label>
-              <textarea
-                value={descripcion}
-                placeholder='Descripción'
-                onChange={(e) => setDescripcion(e.target.value)}
-                required
-              ></textarea>
-            </div>
-            <div className="form-group">
-              <label>Precio</label>
-              <input
-                type="number"
-                placeholder='Precio'
-                value={precio}
-                onChange={(e) => setPrecio(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Imagen</label>
-              <input
-                type="file"
-                onChange={(e) => setImagen(e.target.files[0])}
-                required
-              />
-            </div>
-            <button type="submit">Vender Producto</button>
-          </form>
-          {mensaje && <p>{mensaje}</p>}
+      <div class="container">
+        <div className="sell-product-page">
+          <div className="sell-product-container">
+            <h2>Vender un Articulo</h2>
+            <form onSubmit={handleSubmit} className="sell-product-form">
+              <div className="form-group">
+                <label>Nombre del Producto</label>
+                <input
+                  type="text"
+                  value={nombre}
+                  placeholder='Nombre'
+                  onChange={(e) => setNombre(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Descripción</label>
+                <textarea
+                  value={descripcion}
+                  placeholder='Descripción'
+                  onChange={(e) => setDescripcion(e.target.value)}
+                  required
+                ></textarea>
+              </div>
+              <div className="form-group">
+                <label>Precio</label>
+                <input
+                  type="number"
+                  placeholder='Precio'
+                  value={precio}
+                  onChange={(e) => setPrecio(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Imagen</label>
+                <input
+                  type="file"
+                  onChange={(e) => setImagen(e.target.files[0])}
+                  required
+                />
+              </div>
+              <button type="submit">Vender Producto</button>
+            </form>
+            {mensaje && <p>{mensaje}</p>}
+          </div>
         </div>
       </div>
     </div>

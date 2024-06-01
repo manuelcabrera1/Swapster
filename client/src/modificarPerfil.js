@@ -69,6 +69,7 @@ const ModifyProfile = () => {
   return (
     <div>
       <TopBar />
+      <div class="container">
       <div className="modify-profile">
         <h2>Modificar Perfil</h2>
         <form onSubmit={handleSubmit} className="user-info">
@@ -117,10 +118,11 @@ const ModifyProfile = () => {
             />
           </div>
           <br></br>
-          <button type="submit" className="modify-button">Actualizar Información</button>
+          <button type="submit" className="modify-button2">Actualizar Información</button>
         </form>
         <br></br>
         {mensaje && <p>{mensaje}</p>}
+      </div>
       </div>
     </div>
   );

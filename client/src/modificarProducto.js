@@ -94,56 +94,56 @@ const ModifyProduct = () => {
   return (
     <div>
       <TopBar />
-      <div className="modify-profile">
-        <h2>Modificar Producto</h2>
-        <form onSubmit={handleSubmit} className="user-info">
-          <div className="form-group">
-            <label htmlFor="Nombre">Nombre del Producto</label>
-            <input
-              type="text"
-              id="Nombre"
-              name="Nombre"
-              value={productInfo.Nombre}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="Descripcion">Descripción</label>
-            <textarea
-              id="Descripcion"
-              name="Descripcion"
-              value={productInfo.Descripcion}
-              onChange={handleInputChange}
-              required
-            ></textarea>
-          </div>
-          <div className="form-group">
-            <label htmlFor="Precio">Precio</label>
-            <input
-              type="number"
-              id="Precio"
-              name="Precio"
-              value={productInfo.Precio}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="Imagen">Imagen</label>
-            <input
-              type="file"
-              id="Imagen"
-              name="Imagen"
-              onChange={handleImageChange}
-            />
-          </div>
+      <div class="container">
+        <div className="modify-profile">
+          <h2>Modificar Producto</h2>
+          <form onSubmit={handleSubmit} className="user-info">
+            <div className="form-group">
+              <label htmlFor="Nombre">Nombre del Producto</label>
+              <input
+                type="text"
+                id="Nombre"
+                name="Nombre"
+                value={productInfo.Nombre}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="Descripcion">Descripción</label>
+              <textarea
+                id="Descripcion"
+                name="Descripcion"
+                value={productInfo.Descripcion}
+                onChange={handleInputChange}
+                required
+              ></textarea>
+            </div>
+            <div className="form-group">
+              <label htmlFor="Precio">Precio</label>
+              <input
+                type="number"
+                id="Precio"
+                name="Precio"
+                value={productInfo.Precio}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="Imagen">Imagen</label>
+              <input
+                type="file"
+                id="Imagen"
+                name="Imagen"
+                onChange={handleImageChange}
+              />
+            </div>
+            <button type="submit" className="modify-button2">Actualizar Producto</button>
+          </form>
           <br></br>
-          <br></br>
-          <button type="submit" className="modify-button">Actualizar Producto</button>
-        </form>
-        <br></br>
-        {mensaje && <p>{mensaje}</p>}
+          {mensaje && <p>{mensaje}</p>}
+        </div>
       </div>
     </div>
   );

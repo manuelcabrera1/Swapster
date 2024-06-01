@@ -5,14 +5,27 @@ body {
     font-family: Arial, sans-serif;
     background-color: #080710;
 }
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+  }
   
 .sell-product-page {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    min-height: 100vh;
+    min-height: 80vh;
     background-color: #b4dde5;
+
+    position: relative;
+    top: 0vh;
+    width: 100%;
+    max-width: 800px;
 }
 
 .sell-product-container {
@@ -22,12 +35,16 @@ body {
     padding: 30px;
     border-radius: 8px;
     height: auto;
-    box-shadow: 3px 3px rgb(255, 129, 27), -1em 0 .4em rgb(246, 132, 18);
-    
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    box-shadow: 0 5px 15px rgba(8, 7, 16, 0.8);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    height: auto; /* Ajusta la altura al contenido */
+    position: relative; /* Mantiene la posición relativa */
+    min-height: 80vh; /* Asegura que el contenido no se desborde */
+}
+
+.sell-product-container:hover {
+    box-shadow: 0 10px 20px rgba(8, 7, 16, 1);
 }
 
 .sell-product-container h2 {

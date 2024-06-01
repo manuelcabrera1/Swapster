@@ -6,20 +6,21 @@ body {
 }
 
 .user-profile {
-  width: 100%;
+  width: 90%;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 20px;
   background: rgba(8, 7, 16, 0.8);
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: fixed; 
-  top: 10%; 
-  left: 50%;
-  transform: translateX(-50%); 
   overflow-y: auto;
   max-height: 85vh;
-  box-shadow: 3px 3px rgb(255, 129, 27), -1em 0 .4em rgb(246, 132, 18); 
+  box-shadow: 0 5px 15px rgba(8, 7, 16, 0.8);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-profile:hover {
+  box-shadow: 0 10px 20px rgba(8, 7, 16, 1); /* Aumenta la sombra */
 }
 
 .user-profile h2, .user-profile h3 {
@@ -34,9 +35,10 @@ body {
   color: white;
 }
 
-.user-info .modify-button, .user-info .logout-button, .user-info .favs-button{
+.user-info .modify-button, .user-info .logout-button, .user-info .favs-button {
   display: block;
-  width: 100%;
+  width: 142%;
+
   padding: 10px;
   margin: 10px 0;
   border: none;
@@ -102,11 +104,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .product-list a {
   color: white;
   text-decoration: none;
+  flex: 1;
 }
 
 .product-list a:hover {
@@ -116,14 +120,20 @@ body {
 .product-buttons {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
 }
 
-.product-buttons .modify-product-button, .product-buttons .delete-product-button, .product-buttons .add-review-button, .product-buttons .track-order-button, .product-buttons .sold-button, .product-buttons .onsale-button{
+.product-buttons .modify-product-button, .product-buttons .delete-product-button, .product-buttons .add-review-button, .product-buttons .track-order-button, .product-buttons .sold-button, .product-buttons .onsale-button {
   padding: 5px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  flex: 1 1 45%;
+  max-width: 200px;
 }
 
 .product-buttons .modify-product-button {
@@ -170,4 +180,57 @@ body {
 .onsale-button {
   background-color: #ffc107;
   color: black;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .user-profile {
+    margin: 10px auto;
+    padding: 15px;
+  }
+
+  .user-info p {
+    font-size: 14px;
+  }
+
+  .user-info .modify-button, .user-info .logout-button, .user-info .favs-button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .product-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-buttons {
+    gap: 5px;
+  }
+
+  .product-buttons .modify-product-button, .product-buttons .delete-product-button, .product-buttons .add-review-button, .product-buttons .track-order-button, .product-buttons .sold-button, .product-buttons .onsale-button {
+    font-size: 12px;
+    padding: 8px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-profile {
+    margin: 5px auto;
+    padding: 10px;
+  }
+
+  .user-info p {
+    font-size: 12px;
+  }
+
+  .user-info .modify-button, .user-info .logout-button, .user-info .favs-button {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .product-buttons .modify-product-button, .product-buttons .delete-product-button, .product-buttons .add-review-button, .product-buttons .track-order-button, .product-buttons .sold-button, .product-buttons .onsale-button {
+    font-size: 10px;
+    padding: 6px;
+  }
 }

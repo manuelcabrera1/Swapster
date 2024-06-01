@@ -50,6 +50,7 @@ const Favorites = () => {
       <br />
         <h1>Favoritos</h1>
         <hr />
+      <br />
       <div className="product-listh">
         {userInfo.Favoritos.map(product => (
           <div key={product._id} className="product-cardh">
