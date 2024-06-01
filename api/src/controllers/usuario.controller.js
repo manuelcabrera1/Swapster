@@ -66,7 +66,7 @@ UsuarioCtrl.login = async (req, res) => {
         {
             if (result.Password!=contraseña)
             {
-                res.status(400).json({message: 'Contraseña incorrecta'});
+                return res.status(400).json({message: 'Contraseña incorrecta'});
             }
             req.session.idUsuario = result._id.toString();
             res.status(200).json({message: 'Inicio de sesión exitoso'})    
@@ -83,8 +83,8 @@ UsuarioCtrl.login = async (req, res) => {
 UsuarioCtrl.logout = async (req, res) => {
     req.session.destroy((err) => {
       if (err) {
-        console.error('Error al cerrar sesión:', err);
-        res.status(500).json({ message: 'Error interno del servidor' });
+        //console.error('Error al cerrar sesión:', err);
+        return res.status(500).json({ message: 'Error interno del servidor' });
       }
       res.clearCookie('connect.sid');
       res.json({ message: 'Sesión cerrada exitosamente' });
@@ -102,7 +102,7 @@ UsuarioCtrl.getSessionData = async (req, res) => {
             usuario.Password = 0;
             if (!usuario)
             {
-                res.status(404).json({ message: 'Usuario no encontrado' });
+                return res.status(404).json({ message: 'Usuario no encontrado' });
 
             }
             res.status(200).json(usuario);

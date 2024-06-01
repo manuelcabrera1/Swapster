@@ -1,5 +1,5 @@
 /* General Page Styles */
-body {
+.body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -20,9 +20,9 @@ body {
     max-width: 768px; /* Ancho máximo */
     background-color: #080710;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    box-shadow: 3px 3px rgb(255, 129, 27), -1em 0 .4em rgb(246, 132, 18);
+    box-shadow: 3px 3px rgb(255, 129, 27), -1em 0 0.4em rgb(246, 132, 18);
     margin-top: 20px;
 }
 
@@ -32,11 +32,12 @@ body {
     display: block;
 }
 
-.product-info {
+.product-infop {
     padding: 20px;
+    background-color: #080710; /* Same background color as .product-card */
 }
 
-h2 {
+.product-info h2 {
     color: #ffffff;
     margin-bottom: 10px;
 }
@@ -59,7 +60,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-button {
+.product-actions button {
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -67,39 +68,39 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button.btn-favorite {
+.product-actions button.btn-favorite {
     background-color: #ff4081;
     color: white;
 }
 
-button.btn-favorite:hover {
+.product-actions button.btn-favorite:hover {
     background-color: #e03070;
 }
 
-button.btn-buy {
+.product-actions button.btn-buy {
     background-color: #007BFF;
     color: white;
 }
 
-button.btn-buy:hover {
+.product-actions button.btn-buy:hover {
     background-color: #0056b3;
 }
 
-button.btn-edit {
+.product-actions button.btn-edit {
     background-color: #28a745;
     color: white;
 }
 
-button.btn-edit:hover {
+.product-actions button.btn-edit:hover {
     background-color: #218838;
 }
 
-button.btn-delete {
+.product-actions button.btn-delete {
     background-color: #dc3545;
     color: white;
 }
 
-button.btn-delete:hover {
+.product-actions button.btn-delete:hover {
     background-color: #c82333;
 }
 

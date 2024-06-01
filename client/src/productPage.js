@@ -77,7 +77,7 @@ const ProductPage = () => {
       <div className="product-page">
         <div className="product-card">
           <img src={product.Imagen} alt={product.Nombre} className="product-image" />
-          <div className="product-info">
+          <div className="product-infop">
             <h2>{product.Nombre}</h2>
             <span className="product-price">{product.Precio} €</span>
             <p className="product-description">{product.Descripcion}</p>

@@ -47,7 +47,7 @@ const ModifyProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/usuario/${id}`, userInfo);
+      await axios.put(`http://localhost:5000/api/usuario/${id}`, userInfo, { withCredentials: true });
       setMensaje('Información actualizada exitosamente');
 
       const sessionResponse = await axios.get('http://localhost:5000/api/usuario/auth/session', { withCredentials: true });
