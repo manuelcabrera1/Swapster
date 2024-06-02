@@ -12,13 +12,15 @@ describe('Producto API tests', () => {
     let userId;
 
     beforeAll(async () => {
+      
         mongoServer = await MongoMemoryServer.create();
         const mongoUri = mongoServer.getUri();
-
         await mongoose.connect(mongoUri, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
+
+
         const admin = new Usuario({
             Nombre: 'Test',
             Apellidos: 'User',
@@ -39,6 +41,17 @@ describe('Producto API tests', () => {
         expect(loginResponseA.status).toBe(200); // Verificar que el login fue exitoso
 
 
+        const savedProducto = await Producto.create({
+            Nombre: 'Test3',
+            Descripcion: 'Descripción de prueba',
+            Precio: 10,
+            Categoria: 'Prueba',
+            Imagen: 'imagen.jpg',
+        });
+        productId = savedProducto._id;
+        
+        
+
         // Crear un usuario para la prueba
         const usuario = new Usuario({
             Nombre: 'Test',
@@ -46,7 +59,8 @@ describe('Producto API tests', () => {
             Correo: 'testuser_update_delete@example.com',
             Password: 'password',
             Direccion: '123 Calle Principal',
-            Rol: 'user'
+            Rol: 'user',
+            Productos_vendidos: [productId]
         });
         const savedUsuario = await usuario.save();
         userId = savedUsuario._id;
@@ -60,25 +74,13 @@ describe('Producto API tests', () => {
         expect(loginResponseU.status).toBe(200); // Verificar que el login fue exitoso
 
         // Crear un producto para la prueba
-        const producto = new Producto({
-            Nombre: 'Test3',
-            Descripcion: 'Descripción de prueba',
-            Precio: 10,
-            Categoria: 'Prueba',
-            Imagen: 'imagen.jpg',
-        });
-        const savedProducto = await userAgent
-            .post('/api/producto/create')
-            .send({Nombre:producto.Nombre, Descripcion:producto.Descripcion, Precio: producto.Precio, Categoria: producto.Categoria, Imagen: producto.Imagen});
-
-        expect(savedProducto.status).toBe(200); // Verificar que el login fue exitoso
-        productId = savedProducto._id;
+        
 
     });
     
 
     afterAll(async () => {
-        //await Producto.deleteMany({ Nombre: 'Test3' });
+        await Producto.deleteMany({ Nombre: 'Test3' });
         await Usuario.deleteMany({ Correo: 'testuser_update_delete@example.com' });
         await Usuario.deleteMany({ Correo: 'admintest_update_delete@example.com' });
         await mongoose.disconnect();
@@ -137,7 +139,7 @@ describe('Producto API tests', () => {
         it('debería responder con un mensaje de error si el producto no se encuentra para eliminar', async () => {
             const nonExistentProductId = new mongoose.Types.ObjectId();
 
-            const response = await agent.delete(`/api/producto/${nonExistentProductId}`);
+            const response = await adminAgent.delete(`/api/producto/${nonExistentProductId}`);
 
             expect(response.status).toBe(404);
             expect(response.body).toEqual({ error: 'Producto no encontrado' });

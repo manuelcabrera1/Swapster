@@ -81,19 +81,13 @@ La aplicación cliente debería abrirse automáticamente en `http://localhost:30
 
 Para ejecutar los tests del proyecto, siga estos pasos:
 
-1. Navegue a la carpeta `api` situada en la carpeta raíz del proyecto:
-
-    ```bash
-    cd api
-    ```
-
-2. Asegúrese de que la variable `DB_URI` en el archivo `.env` está configurada correctamente para conectarse a la base de datos de pruebas:
+1. Sitúese en la carpeta raíz del proyecto y asegúrese de que la variable `DB_URI` en el archivo `.env` está configurada correctamente para conectarse a la base de datos de pruebas:
 
     ```env
         DB_URI = mongodb+srv://test:test@cluster-iw.miy9lgu.mongodb.net/Test_bd
     ```
 
-3. Diríjase hacia la carpeta raíz del proyecto y una vez ahí ingrese en el directorio `tests`:
+2. Diríjase hacia la carpeta raíz del proyecto y una vez ahí ingrese en el directorio `tests`:
     ```bash
     cd ../tests
     ```
