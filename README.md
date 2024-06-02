@@ -12,10 +12,8 @@ Antes de comenzar, asegúrese de tener instalados los siguientes programas en su
 
 Clone este repositorio en su máquina local:
 
-    ```bash
     git clone https://github.com/i12cacrm/Swapster
-    cd Swapster
-    ```
+    cd api
 
 ## Servidor
 

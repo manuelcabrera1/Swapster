@@ -19,6 +19,25 @@ describe('Producto API tests', () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
+        const admin = new Usuario({
+            Nombre: 'Test',
+            Apellidos: 'User',
+            Correo: 'admintest_update_delete@example.com',
+            Password: 'password',
+            Direccion: '123 Calle Principal',
+            Rol: 'admin'
+        });
+
+        const savedAdmin = await admin.save();
+        adminId = savedAdmin._id;
+
+        adminAgent = request.agent(app);
+        const loginResponseA = await adminAgent
+            .post('/api/usuario/auth/login')
+            .send({ correo: 'admintest_update_delete@example.com', contraseña: 'password' });
+
+        expect(loginResponseA.status).toBe(200); // Verificar que el login fue exitoso
+
 
         // Crear un usuario para la prueba
         const usuario = new Usuario({
@@ -27,18 +46,18 @@ describe('Producto API tests', () => {
             Correo: 'testuser_update_delete@example.com',
             Password: 'password',
             Direccion: '123 Calle Principal',
-            Rol: 'admin'
+            Rol: 'user'
         });
         const savedUsuario = await usuario.save();
         userId = savedUsuario._id;
 
         // Autenticar al usuario y obtener la cookie de sesión
-        agent = request.agent(app);
-        const loginResponse = await agent
+        userAgent = request.agent(app);
+        const loginResponseU = await userAgent
             .post('/api/usuario/auth/login')
             .send({ correo: 'testuser_update_delete@example.com', contraseña: 'password' });
 
-        expect(loginResponse.status).toBe(200); // Verificar que el login fue exitoso
+        expect(loginResponseU.status).toBe(200); // Verificar que el login fue exitoso
 
         // Crear un producto para la prueba
         const producto = new Producto({
@@ -48,14 +67,20 @@ describe('Producto API tests', () => {
             Categoria: 'Prueba',
             Imagen: 'imagen.jpg',
         });
-        const savedProducto = await producto.save();
+        const savedProducto = await userAgent
+            .post('/api/producto/create')
+            .send({Nombre:producto.Nombre, Descripcion:producto.Descripcion, Precio: producto.Precio, Categoria: producto.Categoria, Imagen: producto.Imagen});
+
+        expect(savedProducto.status).toBe(200); // Verificar que el login fue exitoso
         productId = savedProducto._id;
+
     });
     
 
     afterAll(async () => {
-        await Producto.deleteMany({ Nombre: 'Test3' });
+        //await Producto.deleteMany({ Nombre: 'Test3' });
         await Usuario.deleteMany({ Correo: 'testuser_update_delete@example.com' });
+        await Usuario.deleteMany({ Correo: 'admintest_update_delete@example.com' });
         await mongoose.disconnect();
         await mongoServer.stop();
     });
@@ -68,7 +93,7 @@ describe('Producto API tests', () => {
                 Categoria: 'Nueva categoría',
             };
 
-            const response = await agent
+            const response = await userAgent
                 .put(`/api/producto/${productId}`)
                 .send(updatedFields);
 
@@ -88,7 +113,7 @@ describe('Producto API tests', () => {
                 Categoria: 'Nueva categoría',
             };
 
-            const response = await agent
+            const response = await userAgent
                 .put(`/api/producto/${nonExistentProductId}`)
                 .send(updatedFields);
 
@@ -99,7 +124,7 @@ describe('Producto API tests', () => {
 
     describe('DELETE /api/producto/:productId', () => {
         it('debería eliminar un producto existente', async () => {
-            const response = await agent.delete(`/api/producto/${productId}`);
+            const response = await adminAgent.delete(`/api/producto/${productId}`);
 
             expect(response.status).toBe(200);
             expect(response.body).toEqual({ message: 'Producto eliminado correctamente' });

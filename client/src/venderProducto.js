@@ -98,7 +98,7 @@ const SellProductPage = () => {
                 <input
                   type="number"
                   placeholder='Precio'
-                  value={precio}
+                  value={precio} min="0"
                   onChange={(e) => setPrecio(e.target.value)}
                   required
                 />

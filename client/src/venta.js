@@ -43,7 +43,6 @@ const SaleDetails = () => {
       <div className="sale-details">
         <h2>Detalles de la Venta</h2>
         <div className="product-info">
-          <h3>Producto Vendido</h3>
           <img src={productInfo.Imagen} alt={productInfo.Nombre} className="product-image" />
           <p><strong>Nombre:</strong> {productInfo.Nombre}</p>
           <p><strong>Descripción:</strong> {productInfo.Descripcion}</p>

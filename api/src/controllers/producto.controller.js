@@ -138,13 +138,14 @@ productoCtrl.updateProductById = async (req, res) => {
 
         res.status(200).json(updatedProducto);
     } catch (error) {
-        console.error('Error al actualizar el producto por ID:', error);
+        //console.error('Error al actualizar el producto por ID:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
 // Eliminar un producto por su _id
 productoCtrl.deleteProductById = async (req, res) => {
+
     try {
         const productId = req.params.productId;
         const deletedProduct = await Producto.findByIdAndDelete(productId);
@@ -153,9 +154,34 @@ productoCtrl.deleteProductById = async (req, res) => {
             return res.status(404).json({ error: 'Producto no encontrado' });
         }
 
+        //borramos el producto de la lista de productos a la venta del usuario propietario
+        const userSeller = await Usuario.findOneAndUpdate(
+            {Productos_vendidos: productId},
+            { $pull: { Productos_vendidos: productId } },
+            {new:true}
+        )
+
+        if (!userSeller)
+            return res.status(404).json({error: 'Usuario no encontrado'})
+
+
+        //borramos el producto de la lista de productos comprados del usuario comprador en caso de que este producto estuviera vendido
+
+        if (deletedProduct.IdComprador != null )
+        {
+            const userBuyer = await Usuario.findByIdAndUpdate(
+                deletedProduct.IdComprador,
+                { $pull: { Productos_comprados: productId } },
+                {new:true}
+            )
+            if (!userBuyer)
+                return res.status(404).json({error: 'Usuario no encontrado'})
+
+        }
+
         res.status(200).json({ message: 'Producto eliminado correctamente' });
     } catch (error) {
-        console.error('Error al eliminar el producto por ID:', error);
+        //console.error('Error al eliminar el producto por ID:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
