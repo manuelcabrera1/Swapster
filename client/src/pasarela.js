@@ -27,13 +27,16 @@ const CheckoutForm = ({ product }) => {
 
     if (!error) {
       const { id } = paymentMethod;
+      console.log(id);
+      console.log(product._id);
+      console.log(product.Precio);
       try {
         const { data } = await axios.post("http://localhost:5000/api/payment/checkout", {
           id,
           idProducto: product._id,
           amount: product.Precio * 100,
         }, { withCredentials: true});
-
+        
         if (data.paymentIntent && data.paymentIntent.status === 'succeeded') {
           setMessage('Pago exitoso');
           elements.getElement(CardElement).clear();

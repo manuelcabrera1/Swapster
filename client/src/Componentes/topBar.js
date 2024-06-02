@@ -34,7 +34,7 @@ const TopBar = () => {
     <div className="top-bar">
       {/* Logo */}
       <div className="logo" onClick={() => { window.location.href = '/'; }}>
-        <img src={logo} alt="Swapster Logo" className="nav-logo" />
+        <img src={"/images/logo5.png"} alt="Swapster Logo" className="nav-logo" />
       </div>
 
       {/* Search Bar */}
