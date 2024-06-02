@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 var mongoose = require("mongoose");
-const uri= process.env.DB_URI ? process.env.DB_URI : 'mongodb+srv://admin:root1234@cluster-iw.miy9lgu.mongodb.net/Swapster' 
+const uri= process.env.DB_URI ? process.env.DB_URI : 'mongodb+srv://admin:root1234@cluster-iw.miy9lgu.mongodb.net/Swapster2' 
 
 mongoose.connect(uri)
 .then(()=>{

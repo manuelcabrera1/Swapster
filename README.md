@@ -29,7 +29,7 @@ Clone este repositorio en su máquina local:
 2. Incluya en el archivo `.env` lo siguiente en caso de que no se encuentre:
 
     ```env
-    DB_URI = mongodb+srv://admin:root1234@cluster-iw.miy9lgu.mongodb.net/Swapster
+    DB_URI = mongodb+srv://admin:root1234@cluster-iw.miy9lgu.mongodb.net/Swapster2
     ```
 
 3. Instale las dependencias del servidor:
