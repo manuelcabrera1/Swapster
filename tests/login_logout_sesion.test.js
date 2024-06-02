@@ -57,12 +57,12 @@ describe('Pruebas para la autenticación de usuarios', () => {
 
     it('debería responder con un error si se proporcionan credenciales incorrectas', async () => {
         const response = await agent.post('/api/usuario/auth/login').send({
-            correo: 'correoincorrecto@example.com',
+            correo: 'john.doe@example.com',
             contraseña: 'contraseñaincorrecta',
         });
     
         expect(response.status).toBe(404);
-        expect(response.body).toEqual({ message: 'Usuario no encontrado' });
+        expect(response.body).toEqual({ message: 'Contraseña incorrecta' });
     });
     
     it('debería responder con un error si el usuario no existe', async () => {

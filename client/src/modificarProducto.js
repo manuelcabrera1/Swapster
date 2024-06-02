@@ -125,7 +125,9 @@ const ModifyProduct = () => {
                 type="number"
                 id="Precio"
                 name="Precio"
-                value={productInfo.Precio} min="0"
+                value={productInfo.Precio}
+                min="0.00" max="999999.00"
+                step="0.01"
                 onChange={handleInputChange}
                 required
               />

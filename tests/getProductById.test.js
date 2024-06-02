@@ -59,14 +59,5 @@ describe('GET /api/producto/:productId', () => {
         expect(response.status).toBe(404);
         expect(response.body).toEqual('Producto no encontrado');
     });
-/*
-    it('debería responder con un mensaje de error si ocurre un error en el servidor', async () => {
-     //   const findByIdSpy = jest.spyOn(Producto, 'findById').mockRejectedValue(new Error('Internal Server Error'));
-    
-        const response = await agent.get(`/api/producto/${productId}`);
-        expect(response.status).toBe(500);
-        expect(response.body).toEqual({ error: 'Internal Server Error' });
-        
-      //  findByIdSpy.mockRestore();
-    });*/
+
 });

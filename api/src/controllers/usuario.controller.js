@@ -66,7 +66,7 @@ UsuarioCtrl.login = async (req, res) => {
         {
             if (result.Password!=contraseña)
             {
-                return res.status(400).json({message: 'Contraseña incorrecta'});
+                return res.status(404).json({message: 'Contraseña incorrecta'});
             }
             req.session.idUsuario = result._id.toString();
             res.status(200).json({message: 'Inicio de sesión exitoso'})    
